@@ -17,7 +17,7 @@ import TopicCard from "@/components/2027/paper_submission/TopicCard";
 // Manual portal state control — no date/time automation.
 // Precedence: IS_CLOSED > IS_LIVE > upcoming (both false).
 const IS_LIVE = true;
-const IS_CLOSED = false;
+const IS_CLOSED = true;
 
 const TOAST_MESSAGES = {
   closed: "The submission portal is now closed.",
