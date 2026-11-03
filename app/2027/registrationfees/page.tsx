@@ -24,11 +24,8 @@ export const metadata: Metadata = {
 const REGISTRATION_KEY_DATES = IMPORTANT_DATES.filter((d) =>
   [
     "Early Bird Registration (Authors) Starts",
-    "Early Bird Registration (Authors) Ends",
-    "Late Registration (Authors) Ends",
-    "Camera Ready Papers due",
-    // "Due Date for Alt Text Files",
-    "Additional Authors and General Participants Registration Ends",
+    "Early Bird Registration",
+    "Additional Authors and General Participants Early Bird Registration",
   ].includes(d.event),
 );
 

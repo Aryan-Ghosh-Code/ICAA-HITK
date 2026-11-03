@@ -13,14 +13,14 @@ const TimelineCard = ({ item }: TimelineCardProps) => {
       {/* ── Main row ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 pb-5">
         {/* Left: event name + note */}
-        <div className="min-w-0 flex-1 flex flex-col gap-2">
+        <div className="min-w-0 flex-1 flex flex-col gap-1">
           <h3 className="font-serif text-xl md:text-2xl font-semibold text-ink leading-snug">
             {item.event}
           </h3>
           {item.note && (
-            <span className="inline-block font-mono text-[10px] font-bold uppercase tracking-wider bg-abyss-500 text-paper px-2 py-0.5 border border-ink shadow-[1px_1px_0px_0px_var(--color-ink)] w-fit">
+            <p className="font-mono text-sm text-ink-dim tracking-wide text-justify">
               {item.note}
-            </span>
+            </p>
           )}
         </div>
 
@@ -39,12 +39,8 @@ const TimelineCard = ({ item }: TimelineCardProps) => {
       </div>
 
       {/* ── Time footer — only rendered when time exists ───────────────────── */}
-      {/* ── Time footer — only rendered when time exists ───────────────────── */}
       {item.time && (
         <div className="flex items-center justify-end gap-2 px-6 py-2 border-t border-ink/10 bg-white/60">
-          {/* <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-dim/70">
-            Time
-          </span> */}
           <FaClock className="w-3 h-3 text-ink-dim/70 shrink-0" />
           <span className="font-mono text-sm text-ink-dim tracking-wide">
             {item.time}
