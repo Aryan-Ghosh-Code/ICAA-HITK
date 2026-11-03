@@ -25,14 +25,10 @@ export const IMPORTANT_DATES: ImportantDate[] = [
     time: "00:00 AM IST",
   },
   {
-    event: "Early Bird Registration (Authors) Ends",
-    date: "November 03, 2026",
+    event: "Early Bird Registration",
+    date: "November 10, 2026",
     time: "06:00 PM IST",
-  },
-  {
-    event: "Late Registration (Authors) Ends",
-    date: "November 05, 2026",
-    time: "06:00 PM IST",
+    note: "At least one author for each paper must register within November 10, 2026 for the conference to ensure the inclusion of the paper in the proceedings",
   },
   {
     event: "Camera Ready Papers due",
@@ -45,7 +41,8 @@ export const IMPORTANT_DATES: ImportantDate[] = [
     time: "06:00 PM IST",
   },
   {
-    event: "Additional Authors and General Participants Registration Ends",
+    event:
+      "Additional Authors and General Participants Early Bird Registration",
     date: "November 15, 2026",
     time: "06:00 PM IST",
   },
