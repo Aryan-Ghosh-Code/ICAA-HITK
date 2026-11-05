@@ -31,9 +31,9 @@ export const IMPORTANT_DATES: ImportantDate[] = [
     note: "At least one author for each paper must register within November 10, 2026 for the conference to ensure the inclusion of the paper in the proceedings",
   },
   {
-    event: "Camera Ready Papers due",
-    date: "November 06, 2026",
-    time: "06:00 PM IST",
+    event: "Camera Ready Papers Due (Hard Deadline)",
+    date: "November 09, 2026",
+    time: "11:00 PM IST",
   },
   {
     event: "Due Date for Alt Text Files",
