@@ -27,7 +27,7 @@ const CFP_KEY_DATES = IMPORTANT_DATES.filter((d) =>
     "Submission Portal Opens",
     "Paper Deadline (Final)",
     "Notification of Acceptance",
-    "Camera Ready Papers due",
+    "Camera Ready Papers Due (Hard Deadline)",
     "Due Date for Alt Text Files",
   ].includes(d.event),
 );
