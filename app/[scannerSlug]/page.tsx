@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { getActiveMealSlot } from "@/lib/flags";
 import Scanner from "./Scanner";
 
 export const dynamic = "force-dynamic";
@@ -27,5 +28,13 @@ export default async function ScannerPage({
     redirect(`/${scannerSlug}/login`);
   }
 
-  return <Scanner volunteer={session.name} slug={scannerSlug} />;
+  const initialSlot = await getActiveMealSlot();
+
+  return (
+    <Scanner
+      volunteer={session.name}
+      slug={scannerSlug}
+      initialSlot={initialSlot}
+    />
+  );
 }

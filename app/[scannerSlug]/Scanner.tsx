@@ -21,7 +21,7 @@ import {
   FaCameraRotate,
   FaChartPie,
 } from "react-icons/fa6";
-import { MEAL_SLOTS, slotIsActive } from "@/constants/2027/mealSlots";
+import { MEAL_SLOTS } from "@/constants/2027/mealSlots";
 import type {
   ScanResult as Result,
   SlotStats as Stats,
@@ -58,14 +58,13 @@ function getServerOnlineSnapshot() {
 export default function Scanner({
   volunteer,
   slug,
+  initialSlot = MEAL_SLOTS[0].id,
 }: {
   volunteer: string;
   slug: string;
+  initialSlot?: string;
 }) {
-  const [slot, setSlot] = useState(() => {
-    const active = MEAL_SLOTS.find((s) => slotIsActive(s));
-    return active ? active.id : MEAL_SLOTS[0].id;
-  });
+  const [slot, setSlot] = useState(initialSlot);
   const [result, setResult] = useState<Result | null>(null);
   const isOnline = useSyncExternalStore(
     subscribeOnline,
@@ -180,8 +179,11 @@ export default function Scanner({
           return;
         }
         if (res.ok) {
-          const data = await res.json();
+          const data: Stats = await res.json();
           setStats(data);
+          if (data.activeSlot && data.activeSlot !== slotRef.current) {
+            setSlot(data.activeSlot);
+          }
         }
       } catch {
         // ignore
@@ -200,8 +202,11 @@ export default function Scanner({
           return;
         }
         if (res.ok && !ignore) {
-          const data = await res.json();
+          const data: Stats = await res.json();
           setStats(data);
+          if (data.activeSlot && data.activeSlot !== slotRef.current) {
+            setSlot(data.activeSlot);
+          }
         }
       } catch {
         // ignore
@@ -597,22 +602,14 @@ export default function Scanner({
         </div>
 
         <div className="flex items-center gap-3 self-end sm:self-auto">
-          {/* Active Serving Slot Selector */}
+          {/* Active Serving Slot Display (Controlled by Admin) */}
           <div className="flex items-center gap-2 border-2 border-ink bg-paper px-3 py-1.5 shadow-[2px_2px_0px_0px_var(--color-ink)]">
-            <label className="font-mono text-xs uppercase tracking-wider font-bold text-ink">
-              Meal:
-            </label>
-            <select
-              value={slot}
-              onChange={(e) => setSlot(e.target.value)}
-              className="font-mono text-xs font-bold text-ink bg-transparent focus:outline-none cursor-pointer"
-            >
-              {MEAL_SLOTS.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.label}
-                </option>
-              ))}
-            </select>
+            <span className="font-mono text-[10px] uppercase tracking-wider font-bold text-ink-dim">
+              Slot:
+            </span>
+            <span className="font-mono text-xs font-black text-ink uppercase">
+              {MEAL_SLOTS.find((s) => s.id === slot)?.label || slot}
+            </span>
           </div>
 
           <button

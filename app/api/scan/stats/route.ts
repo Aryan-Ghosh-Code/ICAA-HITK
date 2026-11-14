@@ -3,6 +3,7 @@ import { db, type UserDoc, type ClaimDoc } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { json } from "@/lib/http";
 import { MEAL_SLOTS } from "@/constants/2027/mealSlots";
+import { getActiveMealSlot } from "@/lib/flags";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,10 +13,11 @@ export async function GET(req: NextRequest) {
   const session = await getSession();
   if (!session) return json({ error: "Unauthorized" }, 401);
 
-  const slot = req.nextUrl.searchParams.get("slot");
-  if (!slot || !MEAL_SLOTS.some((s) => s.id === slot)) {
-    return json({ error: "Invalid or missing slot" }, 400);
-  }
+  const activeSlot = await getActiveMealSlot();
+  const querySlot = req.nextUrl.searchParams.get("slot");
+  const slot = querySlot && MEAL_SLOTS.some((s) => s.id === querySlot)
+    ? querySlot
+    : activeSlot;
 
   const d = await db();
   const users = d.collection<UserDoc>("users");
@@ -25,5 +27,5 @@ export async function GET(req: NextRequest) {
   const claimed = await claims.countDocuments({ slot });
   const remaining = Math.max(0, eligible - claimed);
 
-  return json({ slot, eligible, claimed, remaining });
+  return json({ slot, activeSlot, eligible, claimed, remaining });
 }

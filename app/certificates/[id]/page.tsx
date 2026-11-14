@@ -148,7 +148,7 @@ export default async function CertificatesPage({
                     {c.label}
                   </h2>
                   <p className="text-[10px] sm:text-[11px] text-ink-dim">
-                    ICAA 2027 Official Peer &amp; Attendance Record
+                    ICAA 2027: Heritage Institute of Technology, Kolkata
                   </p>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default async function CertificatesPage({
               {/* Action Area Bar */}
               <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 flex items-center justify-between gap-3 border-t border-dashed border-ink/20 pt-2.5 bg-paper/50">
                 <span className="text-[9px] sm:text-[10px] text-ink/50 uppercase">
-                  {c.ready ? "Signed & Verified" : "Awaiting dispatch"}
+                  {!c.ready ? "Yet to be released" : ""}
                 </span>
 
                 {c.ready ? (
@@ -179,8 +179,18 @@ export default async function CertificatesPage({
         </div>
       </div>
 
+      {/* ── Thank You & Acknowledgement Note ── */}
+      <div className="border border-ink/20 bg-surface/50 p-3 sm:p-4 text-center space-y-1">
+        <p className="font-serif italic text-sm sm:text-base text-ink">
+          Thank you for being an integral part of ICAA 2027!
+        </p>
+        <p className="text-[11px] sm:text-xs text-ink-dim">
+          We sincerely appreciate your valuable contributions, and presence in making the conference a memorable success.
+        </p>
+      </div>
+
       {/* ── Footer note ── */}
-      <div className="border-t border-ink/20 pt-3 flex flex-col sm:flex-row items-center justify-between gap-1 text-[10px] text-ink/50">
+      <div className="border-t border-ink/20 pt-3 text-center text-[10px] text-ink/50">
         <span>ICAA 2027 · Heritage Institute of Technology</span>
       </div>
     </div>

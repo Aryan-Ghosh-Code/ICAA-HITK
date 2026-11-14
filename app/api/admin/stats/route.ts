@@ -47,11 +47,12 @@ export async function GET() {
     ).length;
   }
 
-  // 5. Settings (certificate release status)
+  // 5. Settings (certificate release status & active meal slot)
   const settingsDoc = await db
-    .collection<{ _id: string; certificatesReleased?: boolean }>("settings")
+    .collection<{ _id: string; certificatesReleased?: boolean; activeMealSlot?: string }>("settings")
     .findOne({ _id: "flags" });
   const certificatesReleased = Boolean(settingsDoc?.certificatesReleased);
+  const activeMealSlot = settingsDoc?.activeMealSlot || "D1_LUNCH";
 
   // 6. Recent Scan Logs (latest 10, enrich with user name)
   const rawLogs = await db
@@ -142,6 +143,7 @@ export async function GET() {
     slotCounts,
     eligiblePerSlot,
     certificatesReleased,
+    activeMealSlot,
     recentLogs,
     volunteers,
     roster,
@@ -168,6 +170,22 @@ export async function POST(req: NextRequest) {
         { upsert: true },
       );
     return NextResponse.json({ ok: true, certificatesReleased: currentState });
+  }
+
+  if (body.action === "set-active-slot") {
+    const { slot } = body;
+    const validSlots = ["D1_LUNCH", "D2_LUNCH", "D2_DINNER", "D3_LUNCH"];
+    if (!slot || typeof slot !== "string" || !validSlots.includes(slot)) {
+      return NextResponse.json({ error: "Invalid slot" }, { status: 400 });
+    }
+    await db
+      .collection<{ _id: string; activeMealSlot?: string; updatedAt?: Date }>("settings")
+      .updateOne(
+        { _id: "flags" },
+        { $set: { activeMealSlot: slot, updatedAt: new Date() } },
+        { upsert: true },
+      );
+    return NextResponse.json({ ok: true, activeMealSlot: slot });
   }
 
   if (body.action === "create-volunteer") {

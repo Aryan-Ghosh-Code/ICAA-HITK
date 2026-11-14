@@ -41,6 +41,7 @@ export default function AdminDashboardPage() {
 
   // Certificate toggle loading
   const [togglingCerts, setTogglingCerts] = useState(false);
+  const [settingActiveSlot, setSettingActiveSlot] = useState(false);
 
   const fetchStats = useCallback(async () => {
     try {
@@ -99,6 +100,28 @@ export default function AdminDashboardPage() {
       clearInterval(interval);
     };
   }, [fetchStats, router]);
+
+  async function handleSetActiveSlot(slot: Slot) {
+    if (!stats || stats.activeMealSlot === slot || settingActiveSlot) return;
+    setSettingActiveSlot(true);
+    try {
+      const res = await fetch("/api/admin/stats", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "set-active-slot",
+          slot,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to change active meal slot");
+      await fetchStats();
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to set slot";
+      alert(msg);
+    } finally {
+      setSettingActiveSlot(false);
+    }
+  }
 
   async function handleToggleCertificates() {
     if (!stats) return;
@@ -311,11 +334,16 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Meal Slots Progress */}
+      {/* Meal Slots Progress & Active Slot Control */}
       <div className="bg-surface border-2 border-ink p-6 shadow-[6px_6px_0px_0px_var(--color-ink)]">
-        <h3 className="font-serif text-xl font-bold text-ink mb-4 flex items-center gap-2">
-          <span>🍽️</span> Meal Slot Headcount &amp; Progress
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <h3 className="font-serif text-xl font-bold text-ink flex items-center gap-2">
+            <span>🍽️</span> Meal Slot Headcount &amp; Progress
+          </h3>
+          <span className="font-mono text-xs text-ink-dim">
+            Click <strong>&quot;Set Active for Scanners&quot;</strong> to choose the slot volunteers scan.
+          </span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {SLOTS.map((slot) => {
             const served = stats.slotCounts[slot] || 0;
@@ -323,16 +351,26 @@ export default function AdminDashboardPage() {
             const pct =
               eligible > 0 ? Math.round((served / eligible) * 100) : 0;
             const barColor = SLOT_COLORS[slot] ?? "bg-chrome-400";
+            const isActiveSlot = stats.activeMealSlot === slot;
 
             return (
               <div
                 key={slot}
-                className="bg-paper border-2 border-ink p-4 shadow-[3px_3px_0px_0px_var(--color-ink)]"
+                className={`bg-paper border-2 border-ink p-4 shadow-[3px_3px_0px_0px_var(--color-ink)] transition-all ${
+                  isActiveSlot ? "ring-2 ring-sea-500 bg-sea-500/5" : ""
+                }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-bold text-ink uppercase">
-                    {SLOT_LABELS[slot] || slot}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold text-ink uppercase">
+                      {SLOT_LABELS[slot] || slot}
+                    </span>
+                    {isActiveSlot && (
+                      <span className="px-1.5 py-0.5 bg-sea-500 text-paper font-mono font-bold text-[9px] uppercase tracking-wider">
+                        ACTIVE ON SCANNER
+                      </span>
+                    )}
+                  </div>
                   <span className="font-mono text-xs bg-surface px-2 py-0.5 border border-ink/40">
                     {served} / {eligible} ({pct}%)
                   </span>
@@ -344,11 +382,21 @@ export default function AdminDashboardPage() {
                     style={{ width: `${Math.min(100, pct)}%` }}
                   />
                 </div>
-                <div className="mt-2 flex justify-between font-mono text-[10px] text-ink/70">
-                  <span>
-                    Slot: <code>{slot}</code>
-                  </span>
+                <div className="mt-2.5 flex items-center justify-between font-mono text-[10px] text-ink/70">
                   <span>{Math.max(0, eligible - served)} remaining</span>
+                  {isActiveSlot ? (
+                    <span className="text-sea-700 font-bold">
+                      ✓ Currently Active
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => handleSetActiveSlot(slot)}
+                      disabled={settingActiveSlot}
+                      className="px-2 py-0.5 border border-ink bg-surface text-ink hover:bg-paper font-bold cursor-pointer transition shadow-[1px_1px_0px_0px_var(--color-ink)] active:translate-x-px active:translate-y-px"
+                    >
+                      {settingActiveSlot ? "Setting..." : "Set Active for Scanners"}
+                    </button>
+                  )}
                 </div>
               </div>
             );
