@@ -38,6 +38,7 @@ export interface VolunteerDoc {
 export interface SettingsDoc {
   _id: string; // "flags"
   certificatesReleased?: boolean;
+  activeMealSlot?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -80,6 +81,7 @@ export interface ScanResult {
 
 export interface SlotStats {
   slot: string;
+  activeSlot?: string;
   eligible: number;
   claimed: number;
   remaining: number;
@@ -108,6 +110,7 @@ export interface AdminStatsData {
   slotCounts: Record<string, number>;
   eligiblePerSlot: Record<string, number>;
   certificatesReleased: boolean;
+  activeMealSlot: string;
   recentLogs: Array<{
     _id: string;
     action: string;

@@ -11,6 +11,11 @@ const SettingsSchema = new Schema<SettingsDoc>(
       type: Boolean,
       default: false
     },
+    activeMealSlot: {
+      type: String,
+      enum: ["D1_LUNCH", "D2_LUNCH", "D2_DINNER", "D3_LUNCH"],
+      default: "D1_LUNCH"
+    },
   },
   {
     _id: false,
