@@ -55,16 +55,18 @@ export async function POST(req: Request) {
       ? await users.findOne({ _id: id as string }, { projection: { _id: 1 } })
       : null;
 
-  await scanLog.insertOne({
-    at: new Date(),
+  // Log scan attempt
+  const logEntry: Parameters<typeof scanLog.insertOne>[0] = {
+    claimedAt: new Date(),
     volunteer: session.name,
     slot,
     status: result.status,
-    ...(user ? { userId: user._id } : {}),
+    userId: user ? String(user._id) : "",
     ...(result.status === "INVALID"
       ? { rawIdPrefix: String(id).slice(0, 4) }
       : {}),
-  });
+  };
+  await scanLog.insertOne(logEntry);
 
   return json(result);
 }

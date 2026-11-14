@@ -132,7 +132,6 @@ export interface AdminStatsData {
 // ─── UI / Component Types ───────────────────────────────────────────────────
 
 import { CARD } from "@/constants/2027/attractions";
-import { Types } from "mongoose";
 import { ReactNode } from "react";
 
 export type NavChild = { label: string; href: string };

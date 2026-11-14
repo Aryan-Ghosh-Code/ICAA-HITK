@@ -63,7 +63,7 @@ export async function listDriveCertificates(): Promise<
   let pageToken: string | undefined;
 
   do {
-    const res: any = await drive.files.list({
+    const res = await drive.files.list({
       q: `'${folderId}' in parents and trashed = false`,
       fields: "nextPageToken, files(id, name)",
       pageSize: 200,
@@ -85,7 +85,7 @@ export async function openDriveCertificate(
   fileId: string,
 ): Promise<ReadableStream<Uint8Array>> {
   const drive = getDriveClient();
-  const res: any = await drive.files.get(
+  const res = await drive.files.get(
     { fileId, alt: "media" },
     { responseType: "stream" },
   );

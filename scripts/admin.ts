@@ -83,7 +83,7 @@ async function main() {
     const r = await claims.deleteOne({ userId: u._id, slot: arg2 });
     if (r.deletedCount > 0) {
       await d.collection<ScanLogDoc>("scan_log").insertOne({
-        at: new Date(),
+        claimedAt: new Date(),
         volunteer: "cli-admin",
         slot: arg2,
         status: "UNDONE",

@@ -14,7 +14,6 @@ export type {
 // ─── Mongoose connection (singleton, HMR-safe) ────────────────────────────
 
 declare global {
-  // eslint-disable-next-line no-var
   var _icaaMongoose: Promise<typeof mongoose> | undefined;
 }
 

@@ -45,11 +45,9 @@ export async function POST(req: NextRequest) {
 
     await createAdminSession();
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    return NextResponse.json(
-      { error: e.message || "Authentication error" },
-      { status: 500 },
-    );
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : "Authentication error";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
 

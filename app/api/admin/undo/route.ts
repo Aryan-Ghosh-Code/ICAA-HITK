@@ -41,7 +41,7 @@ export async function POST(req: Request) {
   const res = await claims.deleteOne({ userId: user._id, slot });
   if (res.deletedCount > 0) {
     await scanLog.insertOne({
-      at: new Date(),
+      claimedAt: new Date(),
       volunteer: sessionOrRes.name,
       slot,
       status: "UNDONE",

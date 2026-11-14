@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { FaDownload, FaClock, FaAward, FaCircleCheck } from "react-icons/fa6";
+import {
+  FaDownload,
+  FaClock,
+  FaShieldHalved,
+  FaCircleCheck,
+  FaFileLines,
+} from "react-icons/fa6";
 import { db, type UserDoc } from "@/lib/db";
 import { ID_RE, parsePid } from "@/lib/ids";
 import { certificatesReleased } from "@/lib/flags";
@@ -45,104 +51,126 @@ export default async function CertificatesPage({
 
   const roles = [...new Set(certs.map((c) => c.role))].join(" · ");
   const readyCount = certs.filter((c) => c.ready).length;
+  // const shortId = id.slice(0, 8);
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-8">
-      {/* ── Participant Identity Card ── */}
-      <div className="border-2 border-ink bg-surface shadow-[6px_6px_0px_0px_var(--color-ink)] overflow-hidden">
-        {/* Top accent stripe */}
-        <div className="h-1.5 w-full bg-grove-600" />
-        <div className="p-6 sm:p-8">
-          <div className="flex items-center gap-2 text-grove-600 font-mono text-[11px] uppercase tracking-widest font-bold">
-            <FaAward className="w-3.5 h-3.5 shrink-0" />
-            <span>ICAA 2027 Certificates</span>
+    <div className="w-full max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 flex flex-col gap-4 sm:gap-6 font-mono">
+      {/* ── Technical Header / Console Bar ── */}
+      <div className="border-2 border-ink bg-surface shadow-[4px_4px_0px_0px_var(--color-ink)] p-3 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2 text-grove-600 text-[10px] sm:text-xs uppercase tracking-widest font-bold">
+            <FaShieldHalved className="w-3.5 h-3.5 shrink-0" />
+            <span>ICAA 2027 CERTIFICATE DISPATCH REGISTRY</span>
           </div>
-          <h1 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-black text-ink leading-tight wrap-break-word">
-            {user.name}
-          </h1>
-          <div className="mt-4 flex flex-wrap gap-2 items-center">
-            <span className="font-mono text-xs uppercase tracking-wider bg-paper border-2 border-ink px-3 py-1 font-bold text-ink shadow-[2px_2px_0px_0px_var(--color-ink)]">
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-black text-ink leading-tight wrap-break-word">
+              {user.name}
+            </h1>
+          </div>
+        </div>
+
+        {/* Metadata Badges Group */}
+        <div className="flex flex-wrap sm:flex-col sm:items-end gap-1.5 sm:gap-2">
+          {/* <div className="flex items-center gap-1.5 px-2.5 py-1 bg-paper border border-ink text-ink text-[10px] sm:text-[11px] font-bold shadow-[2px_2px_0px_0px_var(--color-ink)]">
+            <FaFingerprint className="w-3 h-3 text-ink/70" />
+            <span className="text-ink/60">ID:</span>
+            <span>{shortId}…</span>
+          </div> */}
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider bg-paper border border-ink px-2 sm:px-2.5 py-0.5 font-bold text-ink">
               {roles || "Participant"}
             </span>
-            {released && readyCount > 0 && (
-              <span className="flex items-center gap-1.5 font-mono text-[11px] text-sea-700 font-semibold">
-                <FaCircleCheck className="w-3.5 h-3.5" />
-                {readyCount} certificate{readyCount > 1 ? "s" : ""} ready to
-                download
+            {released && readyCount > 0 ? (
+              <span className="flex items-center gap-1 text-[10px] sm:text-xs text-sea-700 font-bold bg-sea-500/10 border border-sea-500 px-2 py-0.5">
+                <FaCircleCheck className="w-3 h-3 shrink-0" />
+                <span>{readyCount}/{certs.length} READY</span>
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-[10px] sm:text-xs text-gamboge font-bold bg-chrome-200/20 border border-gamboge px-2 py-0.5">
+                <FaClock className="w-3 h-3 shrink-0" />
+                <span>PENDING</span>
               </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* ── Certificate Release Notice ── */}
+      {/* ── Certificate Release Notice (Conditional) ── */}
       {!released && (
-        <div className="flex items-start gap-4 border-2 border-gamboge bg-chrome-200/20 p-5 sm:p-6 shadow-[4px_4px_0px_0px_var(--color-gamboge)] text-ink">
-          <FaClock className="w-5 h-5 mt-0.5 shrink-0 text-gamboge" />
-          <div className="flex flex-col gap-1 font-sans">
-            <p className="font-bold text-sm sm:text-base">
+        <div className="flex items-center gap-3 border-2 border-gamboge bg-chrome-200/20 p-3 sm:p-4 shadow-[3px_3px_0px_0px_var(--color-gamboge)] text-ink">
+          <FaClock className="w-4 h-4 shrink-0 text-gamboge" />
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 w-full">
+            <p className="font-bold text-xs sm:text-sm">
               Certificates Under Preparation
             </p>
-            <p className="text-xs sm:text-sm text-ink-dim leading-relaxed">
-              Official conference certificates will be released after the
-              conclusion of the event. Keep your printed ID card safe — scanning
-              this QR code will unlock your direct downloads here once
-              available.
+            <p className="text-[11px] sm:text-xs text-ink-dim leading-relaxed">
+              Official records unlock post-conference. Scan QR or revisit URL to download.
             </p>
           </div>
         </div>
       )}
 
-      {/* ── Certificate List ── */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-ink-dim font-bold">
-            Issued Certificates
-            <span className="ml-2 px-1.5 py-0.5 bg-surface border border-ink/30 text-ink font-normal">
-              {certs.length}
-            </span>
-          </h2>
+      {/* ── Certificates Spread Grid ── */}
+      <div className="flex flex-col gap-2.5">
+        <div className="flex items-center justify-between px-1">
+          <span className="text-[10px] sm:text-xs uppercase tracking-widest text-ink-dim font-bold flex items-center gap-1.5">
+            <FaFileLines className="w-3 h-3" />
+            <span>Available Documents ({certs.length})</span>
+          </span>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {certs.map((c) => (
             <div
               key={c.index}
-              className={`border-2 border-ink bg-surface shadow-[4px_4px_0px_0px_var(--color-ink)] flex flex-col sm:flex-row sm:items-center justify-between gap-5 transition-transform hover:translate-x-px hover:translate-y-px overflow-hidden`}
+              className="border-2 border-ink bg-surface shadow-[3px_3px_0px_0px_var(--color-ink)] flex flex-col justify-between transition-transform hover:translate-x-px hover:translate-y-px overflow-hidden group"
             >
-              {/* Left colour accent */}
-              <div className="flex flex-1 items-stretch">
-                <div
-                  className={`w-1 shrink-0 ${c.ready ? "bg-sea-500" : "bg-ink/20"}`}
-                />
-                <div className="p-5 sm:p-6 space-y-1.5 flex-1">
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-ink">
-                    {c.label}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-paper border border-ink font-semibold text-ink">
-                      {c.role}
-                    </span>
-                    <span className="font-mono text-[11px] text-ink-dim">
-                      · ICAA 2027 Official Record
+              {/* Card Header & Content */}
+              <div className="p-3.5 sm:p-4 flex flex-col gap-2">
+                <div className="flex items-center justify-between gap-2 border-b border-ink/15 pb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        c.ready ? "bg-sea-500 animate-pulse" : "bg-ink/30"
+                      }`}
+                    />
+                    <span className="text-[10px] uppercase font-bold text-ink/70">
+                      REF: {c.pid}
                     </span>
                   </div>
+                  <span className="text-[9px] uppercase px-1.5 py-0.5 bg-paper border border-ink/40 font-bold text-ink">
+                    {c.role}
+                  </span>
+                </div>
+
+                <div className="space-y-0.5">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-ink leading-snug">
+                    {c.label}
+                  </h2>
+                  <p className="text-[10px] sm:text-[11px] text-ink-dim">
+                    ICAA 2027 Official Peer &amp; Attendance Record
+                  </p>
                 </div>
               </div>
 
-              <div className="px-5 pb-5 sm:py-6 sm:pr-6 sm:pl-0 shrink-0">
+              {/* Action Area Bar */}
+              <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 flex items-center justify-between gap-3 border-t border-dashed border-ink/20 pt-2.5 bg-paper/50">
+                <span className="text-[9px] sm:text-[10px] text-ink/50 uppercase">
+                  {c.ready ? "Signed & Verified" : "Awaiting dispatch"}
+                </span>
+
                 {c.ready ? (
                   <a
                     href={`/api/certificates/${id}/${c.index}/download`}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-ink bg-grove-600 text-paper font-mono font-bold text-xs uppercase tracking-widest shadow-[3px_3px_0px_0px_var(--color-ink)] hover:bg-grove-800 active:translate-x-px active:translate-y-px active:shadow-none transition-all shrink-0 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 border-2 border-ink bg-grove-600 text-paper font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-[2px_2px_0px_0px_var(--color-ink)] hover:bg-grove-800 active:translate-x-px active:translate-y-px active:shadow-none transition-all cursor-pointer"
                   >
-                    <FaDownload className="w-3.5 h-3.5" />
+                    <FaDownload className="w-3 h-3" />
                     <span>Download PDF</span>
                   </a>
                 ) : (
-                  <div className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-dashed border-ink/30 bg-paper font-mono text-xs text-ink-dim tracking-wider uppercase shrink-0">
-                    <FaClock className="w-3 h-3" />
-                    <span>Available after event</span>
+                  <div className="inline-flex items-center justify-center gap-1 px-2.5 py-1 border border-dashed border-ink/30 bg-paper text-[10px] text-ink-dim uppercase">
+                    <FaClock className="w-2.5 h-2.5" />
+                    <span>Pending</span>
                   </div>
                 )}
               </div>
@@ -152,11 +180,9 @@ export default async function CertificatesPage({
       </div>
 
       {/* ── Footer note ── */}
-      <p className="font-mono text-[11px] text-ink/40 text-center leading-relaxed">
-        This page is private to you. Do not share this URL with others.
-        <br />
-        ICAA 2027 · Heritage Institute of Technology
-      </p>
+      <div className="border-t border-ink/20 pt-3 flex flex-col sm:flex-row items-center justify-between gap-1 text-[10px] text-ink/50">
+        <span>ICAA 2027 · Heritage Institute of Technology</span>
+      </div>
     </div>
   );
 }

@@ -33,8 +33,8 @@ const ScanLogSchema = new Schema<ScanLogDoc>(
   { versionKey: false, timestamps: true },
 );
 
-// Preserve existing index: descending on `at`
-ScanLogSchema.index({ at: -1 });
+// Preserve index: descending on `claimedAt`
+ScanLogSchema.index({ claimedAt: -1 });
 
 export const ScanLogModel: Model<ScanLogDoc> =
   (models["ScanLog"] as Model<ScanLogDoc>) ??

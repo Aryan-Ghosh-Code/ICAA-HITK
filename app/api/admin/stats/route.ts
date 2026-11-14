@@ -49,15 +49,15 @@ export async function GET() {
 
   // 5. Settings (certificate release status)
   const settingsDoc = await db
-    .collection("settings")
-    .findOne({ _id: "flags" as any });
+    .collection<{ _id: string; certificatesReleased?: boolean }>("settings")
+    .findOne({ _id: "flags" });
   const certificatesReleased = Boolean(settingsDoc?.certificatesReleased);
 
   // 6. Recent Scan Logs (latest 10, enrich with user name)
   const rawLogs = await db
     .collection("scan_log")
     .find()
-    .sort({ at: -1, ts: -1 })
+    .sort({ claimedAt: -1, at: -1, ts: -1 })
     .limit(10)
     .toArray();
 
@@ -67,28 +67,33 @@ export async function GET() {
     userMap.set(String(u._id), u.name);
   }
 
-  const recentLogs = rawLogs.map((log: any) => {
-    const logTime = log.at || log.ts || new Date();
+  const recentLogs = rawLogs.map((log: Record<string, unknown>) => {
+    const logTime = log.claimedAt;
     const isOk = log.status === "OK";
+    const userId = typeof log.userId === "string" ? log.userId : undefined;
+    const rawIdPrefix = typeof log.rawIdPrefix === "string" ? log.rawIdPrefix : undefined;
+    const logName = typeof log.name === "string" ? log.name : undefined;
     const userName =
-      log.name ||
-      (log.userId ? userMap.get(log.userId) : null) ||
-      log.rawIdPrefix ||
+      logName ||
+      (userId ? userMap.get(userId) : null) ||
+      rawIdPrefix ||
       null;
 
     return {
-      _id: log._id?.toString() || Math.random().toString(),
+      _id: (log._id as { toString?: () => string })?.toString?.() || Math.random().toString(),
       action: "scan",
-      slot: log.slot || "—",
-      volunteer: log.volunteer || "unknown",
+      slot: typeof log.slot === "string" ? log.slot : "—",
+      volunteer: typeof log.volunteer === "string" ? log.volunteer : "unknown",
       success: isOk,
-      reason: log.status || (isOk ? "SUCCESS" : "DENIED"),
-      pid: log.userId || log.rawIdPrefix || "",
+      reason: typeof log.status === "string" ? log.status : isOk ? "SUCCESS" : "DENIED",
+      pid: userId || rawIdPrefix || "",
       name: userName || "—",
       ts:
         logTime instanceof Date
           ? logTime.toISOString()
-          : new Date(logTime).toISOString(),
+          : typeof logTime === "string" || typeof logTime === "number"
+            ? new Date(logTime).toISOString()
+            : new Date().toISOString(),
     };
   });
 
@@ -156,9 +161,9 @@ export async function POST(req: NextRequest) {
   if (body.action === "toggle-certificates") {
     const currentState = Boolean(body.released);
     await db
-      .collection("settings")
+      .collection<{ _id: string; certificatesReleased?: boolean; updatedAt?: Date }>("settings")
       .updateOne(
-        { _id: "flags" as any },
+        { _id: "flags" },
         { $set: { certificatesReleased: currentState, updatedAt: new Date() } },
         { upsert: true },
       );
