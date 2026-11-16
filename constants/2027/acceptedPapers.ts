@@ -1,398 +1,260 @@
 // constants/2027/acceptedPapers.ts
 
-export type PaperType = "full" | "short";
-
 export interface AcceptedPaper {
-  pid: string;
-  type: PaperType;
+  chapterNo: number;
   title: string;
-  /** Optional for now — add author names here once they are confirmed. */
   authors?: string[];
 }
 
-export const PAPER_TYPE_LABELS: Record<PaperType, string> = {
-  full: "Full Papers",
-  short: "Short Papers",
-};
-
-// ── Full papers ───────────────────────────────────────────────────────────────
-
-export const FULL_PAPERS: AcceptedPaper[] = [
+export const ACCEPTED_PAPERS: AcceptedPaper[] = [
   {
-    pid: "003",
-    type: "full",
-    title:
-      "Uncertainty-Aware Neuro-Symbolic Continual Learning for Reliable Mental Health Screening under Instrument Shift",
-  },
-  {
-    pid: "007",
-    type: "full",
-    title:
-      "DiffGeo-GNN: Diffusion-Geometry Neighborhoods for Message Passing on Heterophilic Graphs",
-  },
-  {
-    pid: "008",
-    type: "full",
-    title:
-      "Dentition Driven Cow Age Estimation Using a Hybrid Deep Feature Condenser Architecture",
-  },
-  {
-    pid: "013",
-    type: "full",
-    title:
-      "Reinforcement Learning Approach for Indoor Delivery Robot Navigation",
-  },
-  {
-    pid: "022",
-    type: "full",
-    title:
-      "Diabetes Prediction Using Machine Learning: A Comparative Evaluation",
-  },
-  {
-    pid: "024",
-    type: "full",
-    title:
-      "BatteryMind: A Physics-Informed Neural Network with Retrieval-Augmented Explanation for Interpretable Battery Remaining-Useful-Life Prediction",
-  },
-  {
-    pid: "025",
-    type: "full",
-    title:
-      "LightALL-Net: A Lightweight Efficient Channel Attention and DropBlock Framework for Acute Lymphoblastic Leukemia Screening",
-  },
-  {
-    pid: "026",
-    type: "full",
-    title:
-      "A Metaheuristics Chaining Strategy for Task Offloading in Internet of Medical Things",
-  },
-  {
-    pid: "034",
-    type: "full",
-    title:
-      "Private and Structural: Translating English–Vietnamese Scientific Documents with Multimodal LLMs",
-  },
-  {
-    pid: "036",
-    type: "full",
-    title: "Sustained Temporal Dominating Sets",
-  },
-  {
-    pid: "039",
-    type: "full",
-    title:
-      "Multi-Capacity Greedy Online Facility Assignment on Cycles: Exact Gap Recurrences and Symmetry-Reduced Algorithms",
-  },
-  {
-    pid: "044",
-    type: "full",
+    chapterNo: 1,
     title:
       "A Comparative Study of Autoregressive Transformer and Hierarchical Graph Neural Network Approaches for Style-Conditioned Drum Pattern Generation",
   },
   {
-    pid: "047",
-    type: "full",
-    title:
-      "A Lightweight and Privacy-Preserving Lattice-Based Authentication Scheme for Post-Quantum IoT",
-  },
-  {
-    pid: "056",
-    type: "full",
-    title:
-      "Phase-Sensing Maps for Deterministic Spectrum Sensing of Selective Frequency-Hopping Emitters",
-  },
-  {
-    pid: "059",
-    type: "full",
-    title:
-      "A Comparative Analysis of Artificial Neural Networks (ANN) and Homotopy Perturbation Method for Integer and Fractional Order Two-Dimensional Brusselator Systems",
-  },
-  {
-    pid: "062",
-    type: "full",
-    title:
-      "Counterexample-Guided Conflict Pruning for Repeated Multi-Agent Path Finding in Warehouse Grids",
-  },
-  {
-    pid: "064",
-    type: "full",
-    title:
-      "A New Data Centric MCDM-based Optimization Algorithm for Municipal Landfill Site Selection",
-  },
-  {
-    pid: "070",
-    type: "full",
-    title:
-      "A Lightweight Offline Mobile Disaster Assistant Using Quantized Small Language Models",
-  },
-  {
-    pid: "072",
-    type: "full",
-    title:
-      "An Optimized Vision Transformer Framework for Classifying Ecological Patches in Assam using GIS",
-  },
-  {
-    pid: "075",
-    type: "full",
-    title:
-      "Restricted Minimal Linear Languages: Transition-System Semantics and ESO Definability",
-  },
-  {
-    pid: "077",
-    type: "full",
-    title:
-      "A Model-Based Development Framework for Scenario-Driven Validation of Autonomous Mobile Robots",
-  },
-  {
-    pid: "081",
-    type: "full",
-    title:
-      "Facial-cue Reinforced Affective Model Engine for Action-Unit assisted FER (FRAME): Application on Ambiguous Emotions",
-  },
-  {
-    pid: "082",
-    type: "full",
+    chapterNo: 2,
     title: "Glacial Lake Detection Using Multi-Spectral Remote Sensing Imagery",
   },
   {
-    pid: "083",
-    type: "full",
-    title:
-      "Confidence-Guided Metaheuristic Portfolio for Joint Offloading and Scheduling in Mobile Edge Computing",
-  },
-  {
-    pid: "084",
-    type: "full",
-    title:
-      "Variational and Influence Attentive Encoders for Unlearning in Graph Recommender Systems",
-  },
-  {
-    pid: "085",
-    type: "full",
-    title:
-      "An empirical analysis of a certifying algorithm for Horn constraint systems",
-  },
-  {
-    pid: "089",
-    type: "full",
-    title: "A Predictive Framework for Base-n Radix Sort Optimization",
-  },
-  {
-    pid: "091",
-    type: "full",
+    chapterNo: 3,
     title:
       "Enhancing Cross-Lingual Transfer of Hybrid Latent Reasoning for Low-Resource Languages",
   },
   {
-    pid: "092",
-    type: "full",
+    chapterNo: 4,
     title:
-      "A Deep Learning-Based LSTM Autoencoder Framework for Intrusion and Anomaly Detection in Cyber-Physical Power Electronics Systems",
+      "Diabetes Prediction Using Machine Learning: A Comparative Evaluation",
   },
   {
-    pid: "098",
-    type: "full",
+    chapterNo: 5,
     title:
-      "Detection of Strikethrough and Inserted Words in Handwritten Bengali-Text Document",
+      "Private and Structural: Translating English–Vietnamese Scientific Documents with Multimodal LLMs",
   },
   {
-    pid: "099",
-    type: "full",
-    title:
-      "MedFLaP: Factorized Latent Probing for Factuality and Faithfulness in Medical Language Model Hallucination Detection",
+    chapterNo: 6,
+    title: "Sustained Temporal Dominating Sets",
   },
   {
-    pid: "107",
-    type: "full",
+    chapterNo: 7,
     title:
-      "LLM-Augmented Proactive Corridor Clearing via Q-Learning-based V2I Signal Control",
+      "Phase-Sensing Maps for Deterministic Spectrum Sensing of Selective Frequency-Hopping Emitters",
   },
   {
-    pid: "110",
-    type: "full",
+    chapterNo: 8,
+    title:
+      "A Lightweight Offline Mobile Disaster Assistant Using Quantized Small Language Models",
+  },
+  {
+    chapterNo: 9,
     title:
       "Online Algorithms for Threshold-Based Refresh Scheduling: Competitive Bounds and a Smooth Policy for Wireless Sensor Networks",
   },
   {
-    pid: "111",
-    type: "full",
-    title:
-      "A Scenario Stratified Evaluation Method for Measuring Prompt Injection Resilience in Tool Augmented LLM Agents",
-  },
-  {
-    pid: "112",
-    type: "full",
-    title:
-      "Participant-level prediction of six-month postoperative endoscopic recurrence from baseline ileal transcriptomics: a negative evaluation in GSE186582",
-  },
-  {
-    pid: "117",
-    type: "full",
-    title:
-      "Co-Evolutionary Malware Detection: A Controlled Comparison of Adaptive Retraining Policies",
-  },
-  {
-    pid: "118",
-    type: "full",
-    title:
-      "Water wAIS: AI-Powered Leak Detection and Non-Revenue Water Reduction in Mumbai's Aging Water Distribution Network",
-  },
-  {
-    pid: "119",
-    type: "full",
-    title:
-      "IM2S3-AI : Image to Math Digitalisation, Solving, and Slide Synthesis using GEPA and Qwen",
-  },
-  {
-    pid: "123",
-    type: "full",
-    title:
-      "EDIS-MRI: Weight-Memory-Free Streaming Encoder–Decoder RTL Accelerator for Brain MRI Segmentation",
-  },
-  {
-    pid: "128",
-    type: "full",
-    title:
-      "MindMesh: A Hierarchical Multi-Task Transformer Framework for Multi-Class Mental Health Disorder Detection",
-  },
-  {
-    pid: "131",
-    type: "full",
-    title:
-      "Unified Multimodal Summarization Using Transformer-Based Architectures and Hybrid Extractive-Abstractive Techniques",
-  },
-  {
-    pid: "133",
-    type: "full",
-    title:
-      "Fusing Convolutional and Transformer Representations for Facial Biomarker-Based ASD Screening",
-  },
-  {
-    pid: "135",
-    type: "full",
-    title:
-      "Does Better Retrieval Mean Better Distractors? Investigating Misconception-Aware Pipelines for Mathematics MCQs",
-  },
-  {
-    pid: "137",
-    type: "full",
+    chapterNo: 10,
     title:
       "Capacity-Aware Pressure-Based Reinforcement Learning for Traffic Signal Control",
   },
   {
-    pid: "140",
-    type: "full",
-    title:
-      "Semantic-Aware Spatial Co-location Pattern Mining over Large-scale POI Data",
+    chapterNo: 11,
+    title: "One Color Preprocessing Improves DSATUR",
   },
   {
-    pid: "143",
-    type: "full",
+    chapterNo: 12,
     title:
-      "Dynamic Queries for Mutable Genome Assemblies over Fixed Multiresolution Contact Matrices",
+      "Covering all blue points and minimum red points by an arbitrary oriented geometric object",
   },
   {
-    pid: "149",
-    type: "full",
+    chapterNo: 13,
     title:
-      "Advanced Analytical Techniques for Comprehensive Assessment of Atmospheric and Oceanic Dynamics",
+      "Reinforcement Learning Approach for Indoor Delivery Robot Navigation",
   },
   {
-    pid: "151",
-    type: "full",
+    chapterNo: 14,
+    title:
+      "Multi-Capacity Greedy Online Facility Assignment on Cycles: Exact Gap Recurrences and Symmetry-Reduced Algorithms",
+  },
+  {
+    chapterNo: 15,
+    title:
+      "Counterexample-Guided Conflict Pruning for Repeated Multi-Agent Path Finding in Warehouse Grids",
+  },
+  {
+    chapterNo: 16,
+    title:
+      "Restricted Minimal Linear Languages: Transition-System Semantics and ESO Definability",
+  },
+  {
+    chapterNo: 17,
+    title:
+      "Confidence-Guided Metaheuristic Portfolio for Joint Offloading and Scheduling in Mobile Edge Computing",
+  },
+  {
+    chapterNo: 18,
+    title:
+      "LLM-Augmented Proactive Corridor Clearing via Q-Learning-based V2I Signal Control",
+  },
+  {
+    chapterNo: 19,
+    title:
+      "A Scenario Stratified Evaluation Method for Measuring Prompt Injection Resilience in Tool Augmented LLM Agents",
+  },
+  {
+    chapterNo: 20,
     title:
       "Fine-Tuning Results for Ethnomedicinal Visual Question Answering through LAVE accuracy",
   },
   {
-    pid: "152",
-    type: "full",
+    chapterNo: 21,
     title:
       "HC2QW: A 4D Hyper Chaotic Chen system controlled Quantum Walk Framework For Secure Image Encryption",
   },
   {
-    pid: "154",
-    type: "full",
-    title: "One Color Preprocessing Improves DSATUR",
+    chapterNo: 22,
+    title:
+      "Uncertainty-Aware Neuro-Symbolic Continual Learning for Reliable Mental Health Screening under Instrument Shift",
   },
   {
-    pid: "161",
-    type: "full",
+    chapterNo: 23,
+    title:
+      "DiffGeo-GNN: Diffusion-Geometry Neighborhoods for Message Passing on Heterophilic Graphs",
+  },
+  {
+    chapterNo: 24,
+    title:
+      "Dentition Driven Cow Age Estimation Using a Hybrid Deep Feature Condenser Architecture",
+  },
+  {
+    chapterNo: 25,
+    title:
+      "A Comparative Analysis of Artificial Neural Networks (ANN) and Homotopy Perturbation Method for Integer and Fractional Order Two-Dimensional Brusselator Systems",
+  },
+  {
+    chapterNo: 26,
+    title:
+      "A New Data Centric MCDM-based Optimization Algorithm for Municipal Landfill Site Selection",
+  },
+  {
+    chapterNo: 27,
+    title:
+      "An Optimized Vision Transformer Framework for Classifying Ecological Patches in Assam using GIS",
+  },
+  {
+    chapterNo: 28,
+    title:
+      "Variational and Influence Attentive Encoders for Unlearning in Graph Recommender Systems",
+  },
+  {
+    chapterNo: 29,
+    title:
+      "Detection of Strikethrough and Inserted Words in Handwritten Bengali-Text Document",
+  },
+  {
+    chapterNo: 30,
+    title:
+      "MindMesh: A Hierarchical Multi-Task Transformer Framework for Multi-Class Mental Health Disorder Detection",
+  },
+  {
+    chapterNo: 31,
+    title:
+      "Unified Multimodal Summarization Using Transformer-Based Architectures and Hybrid Extractive-Abstractive Techniques",
+  },
+  {
+    chapterNo: 32,
+    title:
+      "Semantic-Aware Spatial Co-location Pattern Mining over Large-scale POI Data",
+  },
+  {
+    chapterNo: 33,
+    title:
+      "A Metaheuristics Chaining Strategy for Task Offloading in Internet of Medical Things",
+  },
+  {
+    chapterNo: 34,
+    title:
+      "A Lightweight and Privacy-Preserving Lattice-Based Authentication Scheme for Post-Quantum IoT",
+  },
+  {
+    chapterNo: 35,
+    title:
+      "A Model-Based Development Framework for Scenario-Driven Validation of Autonomous Mobile Robots",
+  },
+  {
+    chapterNo: 36,
+    title:
+      "Facial-cue Reinforced Affective Model Engine for Action-Unit assisted FER (FRAME): Application on Ambiguous Emotions",
+  },
+  {
+    chapterNo: 37,
+    title:
+      "An empirical analysis of a certifying algorithm for Horn constraint systems",
+  },
+  {
+    chapterNo: 38,
+    title: "A Predictive Framework for Base-n Radix Sort Optimization",
+  },
+  {
+    chapterNo: 39,
+    title:
+      "Fusing Convolutional and Transformer Representations for Facial Biomarker-Based ASD Screening",
+  },
+  {
+    chapterNo: 40,
+    title:
+      "Does Better Retrieval Mean Better Distractors? Investigating Misconception-Aware Pipelines for Mathematics MCQs",
+  },
+  {
+    chapterNo: 41,
+    title:
+      "Dynamic Queries for Mutable Genome Assemblies over Fixed Multiresolution Contact Matrices",
+  },
+  {
+    chapterNo: 42,
     title:
       "CivicFix: An AI-Assisted Geospatial Framework for Explainable Civic-Grievance Prioritization and Verified Resolution",
   },
   {
-    pid: "163",
-    type: "full",
-    title:
-      "Covering all blue points and minimum red points by an arbitrary oriented geometric object",
-  },
-];
-
-// ── Short papers ──────────────────────────────────────────────────────────────
-
-export const SHORT_PAPERS: AcceptedPaper[] = [
-  {
-    pid: "002",
-    type: "short",
+    chapterNo: 43,
     title:
       "Learning from Visual Proofs: Neural Models for Network Property Verification",
   },
   {
-    pid: "015",
-    type: "short",
+    chapterNo: 44,
     title:
       "Patient-Grouped Evaluation for Feature-Efficient Superpixel-Based Brain Tumor Segmentation",
   },
   {
-    pid: "045",
-    type: "short",
+    chapterNo: 45,
     title:
       "MobiUNet: A Lightweight Multi-Task Framework for Brain Tumor Segmentation and Slice-Level Classification with Explainability and Approximate 3D Visualization",
   },
   {
-    pid: "048",
-    type: "short",
-    title: "An Empirical Analysis of Randomized Algorithms for Linear Search",
+    chapterNo: 46,
+    title:
+      "An Empirical Analysis of Randomized Algorithms for Linear Search",
   },
   {
-    pid: "053",
-    type: "short",
-    title: "An Optimiser for Constrained University Course Allocation",
-  },
-  {
-    pid: "067",
-    type: "short",
+    chapterNo: 47,
     title:
       "Agent-Native Workflow Design: Principles and the Complexity of Minimum-Cost Redesign",
   },
   {
-    pid: "086",
-    type: "short",
+    chapterNo: 48,
     title: "Last Mile Delivery Optimization",
   },
   {
-    pid: "126",
-    type: "short",
+    chapterNo: 49,
     title:
-      "Construction of the Maximum $(n-2)$~pairwise Edge-Disjoint Spanning Trees in L(Kn)",
+      "Construction of the Maximum (n-2) pairwise Edge-Disjoint Spanning Trees in L(Kn)",
   },
   {
-    pid: "141",
-    type: "short",
+    chapterNo: 50,
     title:
       "Stability-Aware Multi-Ratio Scanline for Robust Lane Keeping on Edge Autonomous Vehicles",
   },
   {
-    pid: "157",
-    type: "short",
+    chapterNo: 51,
     title:
       "Manga Text Detection and EN-VI Translation using a Pure Python Deep Learning Pipeline",
   },
-];
-
-// ── Combined (used for search + empty-state checks) ───────────────────────────
-
-export const ACCEPTED_PAPERS: AcceptedPaper[] = [
-  ...FULL_PAPERS,
-  ...SHORT_PAPERS,
 ];
