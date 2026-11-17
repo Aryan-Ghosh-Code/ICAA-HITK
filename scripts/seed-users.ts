@@ -39,7 +39,7 @@ async function main() {
   }
 
   const client = await mongoClient();
-  const dbName = process.env.MONGODB_DB || "icaa";
+  const dbName = process.env.MONGODB_DB;
   const d = client.db(dbName);
 
   if (!DRY) {

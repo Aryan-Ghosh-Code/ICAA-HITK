@@ -24,7 +24,7 @@ export async function connectMongoose(): Promise<typeof mongoose> {
   if (mongoose.connection.readyState === 1) return mongoose;
 
   globalThis._icaaMongoose ??= mongoose.connect(uri, {
-    dbName: process.env.MONGODB_DB || "icaa",
+    dbName: process.env.MONGODB_DB,
     bufferCommands: false,
   });
 

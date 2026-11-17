@@ -13,6 +13,7 @@
     "generate-qrs": "tsx --env-file=.env scripts/generate-qrs.ts",
     "verify-qrs": "tsx --env-file=.env scripts/verify-qrs.ts",
     "contact-sheet": "tsx --env-file=.env scripts/make-contact-sheet.ts",
+    "generate-pwa-icons": "tsx scripts/generate-pwa-icons.ts",
     "sync-certs": "tsx --env-file=.env scripts/sync-certificates.ts",
     "create-volunteer": "tsx --env-file=.env scripts/create-volunteer.ts",
     "admin": "tsx --env-file=.env scripts/admin.ts",

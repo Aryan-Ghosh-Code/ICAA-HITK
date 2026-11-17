@@ -38,8 +38,9 @@ async function main() {
     } else {
       warn("Database connected, but no participants found (run: npm run seed)");
     }
-  } catch (err: any) {
-    fail(`MongoDB connection failed: ${err.message}`);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    fail(`MongoDB connection failed: ${message}`);
   }
 
   // 2. Token Map & QR files

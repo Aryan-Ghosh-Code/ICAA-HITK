@@ -1,5 +1,5 @@
 // The prefix for participant IDs (e.g. ICAA27_AUT_001)
-export const PID_PREFIX = process.env.PID_PREFIX || "ICAA27";
+export const PID_PREFIX = "ICAA27";
 
 // The 3-letter code inside a PID decides the role label on the card and the certificate title
 export const CATEGORIES = {
