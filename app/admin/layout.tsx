@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/2027/layout/Navbar";
 import Footer from "@/components/2027/layout/Footer";
+import { ServiceWorkerRegistration } from "@/app/components/ServiceWorkerRegistration";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "ICAA 2027 Real-time meal statistics, certificate control, and audit logs.",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    apple: "/pwa/icon-192.png",
+  },
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -17,6 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </main>
 
       <Footer />
+      <ServiceWorkerRegistration />
     </div>
   );
 }
