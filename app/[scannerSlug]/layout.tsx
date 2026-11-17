@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   manifest: "/manifest.webmanifest",
   icons: {
-    apple: "/pwa/icon-192.png",
+    apple: "/pwa/apple-touch-icon.png",
   },
 };
 

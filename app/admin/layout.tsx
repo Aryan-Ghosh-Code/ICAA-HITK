@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "ICAA 2027 Real-time meal statistics, certificate control, and audit logs.",
   manifest: "/manifest.webmanifest",
   icons: {
-    apple: "/pwa/icon-192.png",
+    apple: "/pwa/apple-touch-icon.png",
   },
 };
 
