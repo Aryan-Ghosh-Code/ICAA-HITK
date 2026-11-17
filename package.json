@@ -6,24 +6,53 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "validate-master": "tsx --env-file=.env scripts/validate-master.ts data/master.csv",
+    "seed": "tsx --env-file=.env scripts/seed-users.ts data/master.csv",
+    "generate-qrs": "tsx --env-file=.env scripts/generate-qrs.ts",
+    "verify-qrs": "tsx --env-file=.env scripts/verify-qrs.ts",
+    "contact-sheet": "tsx --env-file=.env scripts/make-contact-sheet.ts",
+    "generate-pwa-icons": "tsx scripts/generate-pwa-icons.ts",
+    "sync-certs": "tsx --env-file=.env scripts/sync-certificates.ts",
+    "create-volunteer": "tsx --env-file=.env scripts/create-volunteer.ts",
+    "admin": "tsx --env-file=.env scripts/admin.ts",
+    "preflight": "tsx --env-file=.env scripts/preflight.ts"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "framer-motion": "^12.40.0",
+    "googleapis": "^189.0.0",
     "gsap": "^3.15.0",
+    "html5-qrcode": "^2.3.8",
+    "jose": "^6.2.17",
+    "jsqr": "^1.4.0",
+    "mongodb": "^7.9.0",
+    "mongoose": "^9.12.1",
     "next": "16.2.7",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-icons": "^5.6.0"
+    "react-icons": "^5.6.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^5.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "mongodb-memory-server": "^11.3.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   }
 }

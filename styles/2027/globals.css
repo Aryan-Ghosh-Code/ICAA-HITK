@@ -56,6 +56,10 @@
     background-color: var(--color-paper);
     color: var(--color-ink);
   }
+  ::selection {
+    background-color: #235A3A;
+    color: #F5F0E8;
+  }
 }
 
 /* ── Utilities ─────────────────────────────── */
